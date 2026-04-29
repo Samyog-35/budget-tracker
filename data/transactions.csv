@@ -1,0 +1,13 @@
+id,date,description,amount,category,tags,type
+1,2025-04-01,Grocery store,85.32,Food,groceries food weekly,expense
+2,2025-04-02,Monthly salary,3200.0,Income,salary paycheck,income
+3,2025-04-03,Netflix subscription,15.99,Entertainment,streaming subscription,expense
+4,2025-04-05,Electric bill,92.5,Utilities,bills electricity,expense
+5,2025-04-07,Dinner with friends,47.2,Food,dining social,expense
+6,2025-04-08,Freelance payment,500.0,Income,freelance side-income,income
+7,2025-04-10,Gas station,54.0,Transport,gas car,expense
+8,2025-04-12,Gym membership,30.0,Health,fitness gym,expense
+9,2025-04-14,Amazon purchase,23.99,Shopping,online amazon,expense
+10,2025-04-18,Coffee shop,12.5,Food,coffee daily,expense
+11,2026-04-29,dordash,20.0,Food,food,expense
+12,2026-04-29,income ,1000000.0,Income,,income
