@@ -45,16 +45,6 @@ category = st.selectbox("Category", ["Food", "Transport", "Shopping", "Income", 
 tx_type = st.radio("Type", ["expense", "income"])
 tags = st.text_input("Tags")
 mood = st.selectbox("Spending Mood", ["😊 Happy", "😐 Neutral", "😟 Regretful"])
-new_data = {
-    "id": get_next_id(df),
-    "date": pd.Timestamp(date_input),
-    "description": desc,
-    "amount": amount,
-    "category": category,
-    "tags": tags,
-    "type": tx_type,
-    "mood": mood  # add this line
-}
 if st.button("Add"):
     if desc != "":
         new_data = {
@@ -64,7 +54,8 @@ if st.button("Add"):
             "amount": amount,
             "category": category,
             "tags": tags,
-            "type": tx_type
+            "type": tx_type,
+            "mood": mood
         }
 
         df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
