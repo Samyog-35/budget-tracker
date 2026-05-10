@@ -63,9 +63,27 @@ if st.button("Add"):
     else:
         st.error("Enter description")
 
+# filters
+st.subheader("Filter Transactions")
+col1, col2 = st.columns(2)
+
+with col1:
+    filter_type = st.selectbox("Filter by Type", ["All", "income", "expense"])
+with col2:
+    filter_category = st.selectbox("Filter by Category", ["All", "Food", "Transport", "Shopping", "Income", "Other"])
+
+filtered_df = df.copy()
+
+if filter_type != "All":
+    filtered_df = filtered_df[filtered_df["type"] == filter_type]
+
+if filter_category != "All":
+    filtered_df = filtered_df[filtered_df["category"] == filter_category]
+
+
 # show data
 st.subheader("All Transactions")
-st.dataframe(df)
+st.dataframe(filtered_df)
 # delete transaction
 st.subheader("Delete Transaction")
 if len(df) > 0:
