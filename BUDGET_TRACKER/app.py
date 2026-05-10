@@ -66,6 +66,17 @@ if st.button("Add"):
 # show data
 st.subheader("All Transactions")
 st.dataframe(df)
+# delete transaction
+st.subheader("Delete Transaction")
+if len(df) > 0:
+    delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
+    if st.button("Delete"):
+        df = df[df["id"] != delete_id]
+        save_data(df)
+        st.success("Transaction deleted!")
+        st.rerun()
+else:
+    st.write("No transactions to delete")
 
 # calculations
 income = df[df["type"] == "income"]["amount"].sum()
@@ -76,9 +87,11 @@ st.write("Total Income:", income)
 st.write("Total Expense:", expense)
 st.write("Balance:", balance)
 
-# chart
+
+# chart# chart
 st.subheader("Expense Chart")
 
+expense_data = df[df["type"] == "expense"]
 expense_data = df[df["type"] == "expense"]
 
 if len(expense_data) > 0:
