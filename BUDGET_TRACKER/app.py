@@ -44,7 +44,17 @@ date_input = st.date_input("Date", value=date.today())
 category = st.selectbox("Category", ["Food", "Transport", "Shopping", "Income", "Other"])
 tx_type = st.radio("Type", ["expense", "income"])
 tags = st.text_input("Tags")
-
+mood = st.selectbox("Spending Mood", ["😊 Happy", "😐 Neutral", "😟 Regretful"])
+new_data = {
+    "id": get_next_id(df),
+    "date": pd.Timestamp(date_input),
+    "description": desc,
+    "amount": amount,
+    "category": category,
+    "tags": tags,
+    "type": tx_type,
+    "mood": mood  # add this line
+}
 if st.button("Add"):
     if desc != "":
         new_data = {
@@ -117,3 +127,13 @@ if len(expense_data) > 0:
     st.plotly_chart(chart)
 else:
     st.write("No expense data yet")
+# mood chart
+st.subheader("😊 Spending by Mood")
+if len(expense_data) > 0 and "mood" in df.columns:
+    mood_chart = px.bar(
+        expense_data.groupby("mood")["amount"].sum().reset_index(),
+        x="mood", y="amount",
+        title="How Much You Spend by Mood",
+        color="mood"
+    )
+    st.plotly_chart(mood_chart)
