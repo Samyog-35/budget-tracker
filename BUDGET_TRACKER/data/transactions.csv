@@ -1,16 +1,1 @@
 id,date,description,amount,category,tags,type,mood
-1,2026-05-10,stock,200.0,Food,good,income,
-2,2026-05-10,buddy,1100.0,Food,good,income,
-3,2026-05-10,rent,100.0,Other,good,income,
-4,2026-05-10,gross,200.0,Shopping,good,income,
-5,2026-05-10,accident,200.0,Other,good,income,
-6,2026-05-10,accident,200.0,Other,good,expense,
-7,2026-05-10,rent,2500.0,Other,good,expense,
-8,2026-05-10,food,2500.0,Food,good,expense,
-9,2026-05-10,stock,2500.0,Income,good,income,
-10,2026-05-10,other inc,223.0,Income,good,income,
-11,2026-05-10,liuk,5678.0,Food,,expense,😐 Neutral
-12,2026-05-10,divid,577778.0,Income,,income,😐 Neutral
-13,2026-05-10,divid,577778.0,Income,,income,😊 Happy
-14,2026-05-10,grodd,778.0,Shopping,,expense,😊 Happy
-15,2026-05-10,accident,1000.0,Other,,expense,😟 Regretful

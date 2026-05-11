@@ -97,6 +97,13 @@ if len(df) > 0:
 else:
     st.write("No transactions to delete")
 
+# delete all
+if st.button("🗑️ Delete All Transactions"):
+    df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
+    save_data(df)
+    st.success("All transactions deleted!")
+    st.rerun()
+
 # calculations
 income = df[df["type"] == "income"]["amount"].sum()
 expense = df[df["type"] == "expense"]["amount"].sum()
@@ -128,3 +135,13 @@ if len(expense_data) > 0 and "mood" in df.columns:
         color="mood"
     )
     st.plotly_chart(mood_chart)
+    # income vs expense bar chart
+st.subheader("📊 Income vs Expense")
+summary = pd.DataFrame({
+    "Type": ["Income", "Expense"],
+    "Amount": [income, expense]
+})
+bar_chart = px.bar(summary, x="Type", y="Amount", color="Type",
+                   color_discrete_map={"Income": "green", "Expense": "red"},
+                   title="Income vs Expense")
+st.plotly_chart(bar_chart)
