@@ -205,3 +205,12 @@ with tab4:
             st.rerun()
     else:
         st.write("No assets to delete")
+        # net worth chart
+    st.subheader("📊 Net Worth Breakdown")
+    if len(assets_df) > 0:
+        total = assets_df["value"].sum()
+        st.metric("Total Net Worth", f"${total}")
+        asset_chart = px.pie(assets_df, values="value", names="name", title="Assets Breakdown")
+        st.plotly_chart(asset_chart)
+    else:
+        st.write("No assets yet")
