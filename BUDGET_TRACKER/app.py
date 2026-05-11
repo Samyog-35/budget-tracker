@@ -192,3 +192,15 @@ with tab4:
             st.error("Enter asset name")
 
     st.dataframe(assets_df)
+
+    # delete asset
+    st.subheader("Delete Asset")
+    if len(assets_df) > 0:
+        delete_asset = st.selectbox("Select asset to delete", assets_df["name"])
+        if st.button("Delete Asset"):
+            assets_df = assets_df[assets_df["name"] != delete_asset]
+            assets_df.to_csv(assets_file, index=False)
+            st.success("Asset deleted!")
+            st.rerun()
+    else:
+        st.write("No assets to delete")
