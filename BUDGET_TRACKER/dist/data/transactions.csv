@@ -1,1 +1,5 @@
 id,date,description,amount,category,tags,type,mood
+2,2026-05-11,shopping,500.0,Shopping,grosseries,expense,😐 Neutral
+3,2026-05-31,pay check ,10000.0,Income,fiserv,income,😊 Happy
+4,2026-05-31,food,300.0,Food,food,expense,😊 Happy
+5,2026-05-31,accident,6000.0,Other,medical bills,expense,😟 Regretful
