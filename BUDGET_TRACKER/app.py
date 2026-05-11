@@ -125,46 +125,46 @@ with tab2:
         st.success("All transactions deleted!")
         st.rerun()
 
+with tab3:
+
+    # calculations
+    income = df[df["type"] == "income"]["amount"].sum()
+    expense = df[df["type"] == "expense"]["amount"].sum()
+    balance = income - expense
+
+    st.write("Total Income:", income)
+    st.write("Total Expense:", expense)
+    st.write("Balance:", balance)
 
 
-# calculations
-income = df[df["type"] == "income"]["amount"].sum()
-expense = df[df["type"] == "expense"]["amount"].sum()
-balance = income - expense
+    # chart# chart
+    st.subheader("Expense Chart")
 
-st.write("Total Income:", income)
-st.write("Total Expense:", expense)
-st.write("Balance:", balance)
+    expense_data = df[df["type"] == "expense"]
+    expense_data = df[df["type"] == "expense"]
 
-
-# chart# chart
-st.subheader("Expense Chart")
-
-expense_data = df[df["type"] == "expense"]
-expense_data = df[df["type"] == "expense"]
-
-if len(expense_data) > 0:
-    chart = px.pie(expense_data, values="amount", names="category", title="Expenses by Category")
-    st.plotly_chart(chart)
-else:
-    st.write("No expense data yet")
-# mood chart
-st.subheader("😊 Spending by Mood")
-if len(expense_data) > 0 and "mood" in df.columns:
-    mood_chart = px.bar(
-        expense_data.groupby("mood")["amount"].sum().reset_index(),
-        x="mood", y="amount",
-        title="How Much You Spend by Mood",
-        color="mood"
-    )
-    st.plotly_chart(mood_chart)
-    # income vs expense bar chart
-st.subheader("📊 Income vs Expense")
-summary = pd.DataFrame({
-    "Type": ["Income", "Expense"],
-    "Amount": [income, expense]
-})
-bar_chart = px.bar(summary, x="Type", y="Amount", color="Type",
-                   color_discrete_map={"Income": "green", "Expense": "red"},
-                   title="Income vs Expense")
-st.plotly_chart(bar_chart)
+    if len(expense_data) > 0:
+        chart = px.pie(expense_data, values="amount", names="category", title="Expenses by Category")
+        st.plotly_chart(chart)
+    else:
+        st.write("No expense data yet")
+    # mood chart
+    st.subheader("😊 Spending by Mood")
+    if len(expense_data) > 0 and "mood" in df.columns:
+        mood_chart = px.bar(
+            expense_data.groupby("mood")["amount"].sum().reset_index(),
+            x="mood", y="amount",
+            title="How Much You Spend by Mood",
+            color="mood"
+        )
+        st.plotly_chart(mood_chart)
+        # income vs expense bar chart
+    st.subheader("📊 Income vs Expense")
+    summary = pd.DataFrame({
+        "Type": ["Income", "Expense"],
+        "Amount": [income, expense]
+    })
+    bar_chart = px.bar(summary, x="Type", y="Amount", color="Type",
+                    color_discrete_map={"Income": "green", "Expense": "red"},
+                    title="Income vs Expense")
+    st.plotly_chart(bar_chart)

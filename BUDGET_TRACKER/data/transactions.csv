@@ -1,1 +1,10 @@
 id,date,description,amount,category,tags,type,mood
+1,2026-05-10,good,1000.0,Food,aldi,expense,😐 Neutral
+2,2026-05-14,car repair,550.0,Other,tire shop ,expense,😟 Regretful
+3,2026-05-14,divident,550.0,Income,meta,income,😊 Happy
+4,2026-05-31,pay check ,10000.0,Income,fiserv,income,😊 Happy
+5,2026-05-31,travel,1000.0,Transport,fiserv,expense,😐 Neutral
+6,2026-05-31,medicine,1500.0,Other,cvs,expense,😟 Regretful
+8,2026-06-01,stocks bought,1000.0,Income,asssets,income,😟 Regretful
+9,2026-06-01,stocks bought,1000.0,Income,asssets,income,😊 Happy
+10,2026-06-01,shopping,1070.0,Income,asssets,expense,😊 Happy
