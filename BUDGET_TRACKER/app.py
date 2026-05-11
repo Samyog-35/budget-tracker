@@ -8,7 +8,6 @@ import base64
 # set background
 img_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "Background.png")
 with open(img_path, "rb") as f:
-    import base64
     data = base64.b64encode(f.read()).decode()
 st.markdown(f"""
     <style>
