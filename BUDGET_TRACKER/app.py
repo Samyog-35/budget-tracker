@@ -3,15 +3,21 @@ import pandas as pd
 import plotly.express as px
 import os
 from datetime import date
+import base64
+
 # set background
-st.markdown("""
+img_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "Background.png")
+with open(img_path, "rb") as f:
+    import base64
+    data = base64.b64encode(f.read()).decode()
+st.markdown(f"""
     <style>
-    .stApp {
-        background-image: url("assets/Background.png");
+    .stApp {{
+        background-image: url("data:image/png;base64,{data}");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-    }
+    }}
     </style>
 """, unsafe_allow_html=True)
 
