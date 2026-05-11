@@ -171,12 +171,24 @@ with tab3:
     st.plotly_chart(bar_chart)
 with tab4:
     st.subheader("🏦 My Assets")
-    
+
+    # load assets
+    assets_file = "data/assets.csv"
+    if os.path.exists(assets_file):
+        assets_df = pd.read_csv(assets_file)
+    else:
+        assets_df = pd.DataFrame(columns=["name", "value"])
+
     asset_name = st.text_input("Asset Name")
     asset_value = st.number_input("Asset Value ($)", min_value=0.0)
-    
+
     if st.button("Add Asset"):
         if asset_name != "":
+            new_asset = {"name": asset_name, "value": asset_value}
+            assets_df = pd.concat([assets_df, pd.DataFrame([new_asset])], ignore_index=True)
+            assets_df.to_csv(assets_file, index=False)
             st.success("Asset added!")
         else:
             st.error("Enter asset name")
+
+    st.dataframe(assets_df)
