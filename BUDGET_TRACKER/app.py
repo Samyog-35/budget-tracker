@@ -52,7 +52,7 @@ df = load_data()
 st.title("💰 Budget Tracker")
 st.write("Track your income and expenses easily")
 
-tab1, tab2, tab3 = st.tabs(["➕ Add Transaction", "📋 Transactions", "📊 Charts"])
+tab1, tab2, tab3, tab4 = st.tabs(["➕ Add Transaction", "📋 Transactions", "📊 Charts", "📈Assets"])
 with tab1:
     # add transaction
     st.subheader("Add Transaction")
@@ -107,23 +107,24 @@ with tab2:
     st.subheader("All Transactions")
     st.dataframe(filtered_df)
     # delete transaction
-    st.subheader("Delete Transaction")
-    if len(df) > 0:
-        delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
+st.subheader("Delete Transaction")
+if len(df) > 0:
+    delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
+    col1, col2 = st.columns(2)
+    with col1:
         if st.button("Delete"):
             df = df[df["id"] != delete_id]
             save_data(df)
             st.success("Transaction deleted!")
             st.rerun()
-    else:
-        st.write("No transactions to delete")
-
-    # delete all
-    if st.button("🗑️ Delete All Transactions"):
-        df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
-        save_data(df)
-        st.success("All transactions deleted!")
-        st.rerun()
+    with col2:
+        if st.button("🗑️ Delete All"):
+            df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
+            save_data(df)
+            st.success("All transactions deleted!")
+            st.rerun()
+else:
+    st.write("No transactions to delete")
 
 with tab3:
 
@@ -168,3 +169,14 @@ with tab3:
                     color_discrete_map={"Income": "green", "Expense": "red"},
                     title="Income vs Expense")
     st.plotly_chart(bar_chart)
+with tab4:
+    st.subheader("🏦 My Assets")
+    
+    asset_name = st.text_input("Asset Name")
+    asset_value = st.number_input("Asset Value ($)", min_value=0.0)
+    
+    if st.button("Add Asset"):
+        if asset_name != "":
+            st.success("Asset added!")
+        else:
+            st.error("Enter asset name")
