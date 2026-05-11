@@ -52,8 +52,10 @@ df = load_data()
 st.title("💰 Budget Tracker")
 st.write("Track your income and expenses easily")
 
-# add transaction
-st.subheader("Add Transaction")
+tab1, tab2, tab3 = st.tabs(["➕ Add Transaction", "📋 Transactions", "📊 Charts"])
+with tab1:
+    # add transaction
+    st.subheader("Add Transaction")
 
 desc = st.text_input("Description")
 amount = st.number_input("Amount", min_value=0.0)
