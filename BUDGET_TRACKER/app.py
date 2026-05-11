@@ -135,7 +135,6 @@ with tab3:
     st.subheader("Expense Chart")
 
     expense_data = df[df["type"] == "expense"]
-    expense_data = df[df["type"] == "expense"]
 
     if len(expense_data) > 0:
         chart = px.pie(expense_data, values="amount", names="category", title="Expenses by Category")
