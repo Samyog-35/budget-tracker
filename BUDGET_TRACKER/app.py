@@ -57,16 +57,16 @@ with tab1:
     # add transaction
     st.subheader("Add Transaction")
 
-desc = st.text_input("Description")
-amount = st.number_input("Amount", min_value=0.0)
-date_input = st.date_input("Date", value=date.today())
-category = st.selectbox("Category", ["Food", "Transport", "Shopping", "Income", "Other"])
-tx_type = st.radio("Type", ["expense", "income"])
-tags = st.text_input("Tags")
-mood = st.selectbox("Spending Mood", ["😊 Happy", "😐 Neutral", "😟 Regretful"])
-if st.button("Add"):
-    if desc != "":
-        new_data = {
+    desc = st.text_input("Description")
+    amount = st.number_input("Amount", min_value=0.0)
+    date_input = st.date_input("Date", value=date.today())
+    category = st.selectbox("Category", ["Food", "Transport", "Shopping", "Income", "Other"])
+    tx_type = st.radio("Type", ["expense", "income"])
+    tags = st.text_input("Tags")
+    mood = st.selectbox("Spending Mood", ["😊 Happy", "😐 Neutral", "😟 Regretful"])
+    if st.button("Add"):
+        if desc != "":
+            new_data = {
             "id": get_next_id(df),
             "date": pd.Timestamp(date_input),
             "description": desc,
@@ -75,53 +75,57 @@ if st.button("Add"):
             "tags": tags,
             "type": tx_type,
             "mood": mood
-        }
+         }
 
-        df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
-        save_data(df)
-        st.success("Transaction added!")
+            df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
+            save_data(df)
+            st.success("Transaction added!")
+        else:
+           st.error("Enter description")
+    
+with tab2:
+
+    # filters
+    st.subheader("Filter Transactions")
+    col1, col2 = st.columns(2)
+
+    with col1:
+        filter_type = st.selectbox("Filter by Type", ["All", "income", "expense"])
+    with col2:
+        filter_category = st.selectbox("Filter by Category", ["All", "Food", "Transport", "Shopping", "Income", "Other"])
+
+    filtered_df = df.copy()
+
+    if filter_type != "All":
+        filtered_df = filtered_df[filtered_df["type"] == filter_type]
+
+    if filter_category != "All":
+        filtered_df = filtered_df[filtered_df["category"] == filter_category]
+
+
+    # show data
+    st.subheader("All Transactions")
+    st.dataframe(filtered_df)
+    # delete transaction
+    st.subheader("Delete Transaction")
+    if len(df) > 0:
+        delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
+        if st.button("Delete"):
+            df = df[df["id"] != delete_id]
+            save_data(df)
+            st.success("Transaction deleted!")
+            st.rerun()
     else:
-        st.error("Enter description")
+        st.write("No transactions to delete")
 
-# filters
-st.subheader("Filter Transactions")
-col1, col2 = st.columns(2)
-
-with col1:
-    filter_type = st.selectbox("Filter by Type", ["All", "income", "expense"])
-with col2:
-    filter_category = st.selectbox("Filter by Category", ["All", "Food", "Transport", "Shopping", "Income", "Other"])
-
-filtered_df = df.copy()
-
-if filter_type != "All":
-    filtered_df = filtered_df[filtered_df["type"] == filter_type]
-
-if filter_category != "All":
-    filtered_df = filtered_df[filtered_df["category"] == filter_category]
-
-
-# show data
-st.subheader("All Transactions")
-st.dataframe(filtered_df)
-# delete transaction
-st.subheader("Delete Transaction")
-if len(df) > 0:
-    delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
-    if st.button("Delete"):
-        df = df[df["id"] != delete_id]
+    # delete all
+    if st.button("🗑️ Delete All Transactions"):
+        df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
         save_data(df)
-        st.success("Transaction deleted!")
+        st.success("All transactions deleted!")
         st.rerun()
-else:
-    st.write("No transactions to delete")
 
-# delete all
-if st.button("🗑️ Delete All Transactions"):
-    df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
-    save_data(df)
-    st.success("All transactions deleted!")
-    st.rerun()
+
 
 # calculations
 income = df[df["type"] == "income"]["amount"].sum()
