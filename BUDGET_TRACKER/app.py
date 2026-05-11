@@ -177,14 +177,15 @@ with tab4:
     if os.path.exists(assets_file):
         assets_df = pd.read_csv(assets_file)
     else:
-        assets_df = pd.DataFrame(columns=["name", "value"])
+        assets_df = pd.DataFrame(columns=["name", "value", "type"])
 
     asset_name = st.text_input("Asset Name")
     asset_value = st.number_input("Asset Value ($)", min_value=0.0)
+    asset_type = st.selectbox("Asset Type", ["Cash", "Property", "Vehicle", "Investment", "Other"])
 
     if st.button("Add Asset"):
         if asset_name != "":
-            new_asset = {"name": asset_name, "value": asset_value}
+            new_asset = {"name": asset_name, "value": asset_value, "type": asset_type}
             assets_df = pd.concat([assets_df, pd.DataFrame([new_asset])], ignore_index=True)
             assets_df.to_csv(assets_file, index=False)
             st.success("Asset added!")
