@@ -1,2 +1,7 @@
 name,value,type
 house ,200.0,Other
+house ,100000.0,Other
+cash,50000.0,Cash
+car,2000000.0,Vehicle
+land,50000000.0,Vehicle
+stocks,50000000.0,Investment

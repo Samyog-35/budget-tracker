@@ -84,47 +84,41 @@ with tab1:
            st.error("Enter description")
     
 with tab2:
-
     # filters
     st.subheader("Filter Transactions")
     col1, col2 = st.columns(2)
-
     with col1:
         filter_type = st.selectbox("Filter by Type", ["All", "income", "expense"])
     with col2:
         filter_category = st.selectbox("Filter by Category", ["All", "Food", "Transport", "Shopping", "Income", "Other"])
 
     filtered_df = df.copy()
-
     if filter_type != "All":
         filtered_df = filtered_df[filtered_df["type"] == filter_type]
-
     if filter_category != "All":
         filtered_df = filtered_df[filtered_df["category"] == filter_category]
 
-
-    # show data
     st.subheader("All Transactions")
     st.dataframe(filtered_df)
-    # delete transaction
-st.subheader("Delete Transaction")
-if len(df) > 0:
-    delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("Delete"):
-            df = df[df["id"] != delete_id]
-            save_data(df)
-            st.success("Transaction deleted!")
-            st.rerun()
-    with col2:
-        if st.button("🗑️ Delete All"):
-            df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
-            save_data(df)
-            st.success("All transactions deleted!")
-            st.rerun()
-else:
-    st.write("No transactions to delete")
+
+    st.subheader("Delete Transaction")
+    if len(df) > 0:
+        delete_id = st.selectbox("Select transaction ID to delete", df["id"].astype(int))
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("Delete"):
+                df = df[df["id"] != delete_id]
+                save_data(df)
+                st.success("Transaction deleted!")
+                st.rerun()
+        with col2:
+            if st.button("🗑️ Delete All"):
+                df = pd.DataFrame(columns=["id", "date", "description", "amount", "category", "tags", "type", "mood"])
+                save_data(df)
+                st.success("All transactions deleted!")
+                st.rerun()
+    else:
+        st.write("No transactions to delete")
 
 with tab3:
 
