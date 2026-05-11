@@ -3,6 +3,17 @@ import pandas as pd
 import plotly.express as px
 import os
 from datetime import date
+# set background
+st.markdown("""
+    <style>
+    .stApp {
+        background-image: url("assets/Background.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # file path
 DATA_FILE = "data/transactions.csv"
