@@ -79,6 +79,7 @@ with tab1:
             df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
             save_data(df)
             st.success("Transaction added!")
+            st.rerun()
         else:
            st.error("Enter description")
     
@@ -131,7 +132,7 @@ with tab3:
     st.write("Balance:", balance)
 
 
-    # chart# chart
+    # chart
     st.subheader("Expense Chart")
 
     expense_data = df[df["type"] == "expense"]
